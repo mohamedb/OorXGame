@@ -9,10 +9,10 @@ import com.google.gwt.user.client.ui.*;
 public class MainGrid implements ClickHandler{
     Grid grid;
 	ArrayList<Cell> cells;
-	HorizontalPanel hp_main_grid; 
-	Button current_cell= new Button();
-	boolean game_over=false;
-	boolean is_player_toggle= false;
+	HorizontalPanel mainGridHorizontalPanel; 
+	Button currentCellBtn= new Button();
+	boolean isGameOver=false;
+	boolean isPlayerToggle= false;
 	ArrayList<Player> players = new ArrayList<Player>();
     
 	public void init() {
@@ -21,15 +21,15 @@ public class MainGrid implements ClickHandler{
 		this.createCells();
 		this.initCells();
 		this.addListenerOnCells();
-		this.game_over=false;
-		this.is_player_toggle=false;
+		this.isGameOver=false;
+		this.isPlayerToggle=false;
 	}
 	
 	public void initTextCells() {
 		for(Cell cell:this.cells){
     		cell.getSquare().setText("");
-    		this.game_over=false;
-    		this.is_player_toggle=false;
+    		this.isGameOver=false;
+    		this.isPlayerToggle=false;
     	}
 	}
 	
@@ -52,32 +52,32 @@ public class MainGrid implements ClickHandler{
 	 }
 
 	public HorizontalPanel drawUi() {
-		this.hp_main_grid = new HorizontalPanel();
+		this.mainGridHorizontalPanel = new HorizontalPanel();
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				cells.get(i * 3 + j).setPixelSize(50, 50);
 				grid.setWidget(i, j, cells.get(i * 3 + j).getSquare());
 			}
 		}
-	    this.hp_main_grid.add(grid);
-	    return this.hp_main_grid;
+	    this.mainGridHorizontalPanel.add(grid);
+	    return this.mainGridHorizontalPanel;
 	}
 
 	@Override
 	public void onClick(ClickEvent event) {
-		this.current_cell=(Button) event.getSource();
-		if (!this.game_over) {
-			if (current_cell.getText().equals("")) {
-				if (is_player_toggle) {
+		this.currentCellBtn=(Button) event.getSource();
+		if (!this.isGameOver) {
+			if (currentCellBtn.getText().equals("")) {
+				if (isPlayerToggle) {
 
-					current_cell.setText("X");
+					currentCellBtn.setText("X");
 					this.gameOver();
 
 				} else {
-					current_cell.setText("O");
+					currentCellBtn.setText("O");
 					this.gameOver();
 				}
-				is_player_toggle = !is_player_toggle;
+				isPlayerToggle = !isPlayerToggle;
 			} else {
 				Window.alert("The square is already taken !");
 			}
@@ -105,7 +105,7 @@ public class MainGrid implements ClickHandler{
 							&& tab[i][h].equals(tab[i][h + 2])
 							&& (tab[i][h].equals("O") || tab[i][h]
 									.equals("X"))) {
-						this.game_over = true;
+						this.isGameOver = true;
 						this.updateScore(tab[i][h]);
 						Window.alert(" Player " + tab[i][h] + "  WIN :) ");
 
@@ -117,7 +117,7 @@ public class MainGrid implements ClickHandler{
 							&& tab[i + 2][h].equals(tab[i][h])
 							&& (tab[i][h].equals("O") || tab[i][h]
 									.equals("X"))) {
-						this.game_over = true;
+						this.isGameOver = true;
 						this.updateScore(tab[i][h]);
 						Window.alert(" Player " + tab[i][h] + "  WIN :) ");
 					}
@@ -128,7 +128,7 @@ public class MainGrid implements ClickHandler{
 						&& tab[i][h].equals(tab[i + 1][h + 1])
 						&& tab[i][h].equals(tab[i + 2][h + 2])
 						&& (tab[i][h].equals("O") || tab[i][h].equals("X"))) {
-					this.game_over = true;
+					this.isGameOver = true;
 					this.updateScore(tab[i][h]);
 					Window.alert(" Player " + tab[i][h] + "  WIN :) ");
 				}
@@ -136,7 +136,7 @@ public class MainGrid implements ClickHandler{
 						&& tab[i][h].equals(tab[i + 1][h - 1])
 						&& tab[i][h].equals(tab[i + 2][h - 2])
 						&& (tab[i][h].equals("O") || tab[i][h].equals("X"))) {
-					this.game_over = true;
+					this.isGameOver = true;
 					this.updateScore(tab[i][h]);
 					Window.alert(" Player " + tab[i][h] + "  WIN :) ");
 				}
@@ -148,15 +148,15 @@ public class MainGrid implements ClickHandler{
 		this.players= players;
 	}
 
-	private void updateScore(String player_end_name) {
-		String player_name="player_"+player_end_name.toLowerCase();
+	private void updateScore(String playerEndName) {
+		String playerName="player_"+playerEndName.toLowerCase();
 		for(Player player:this.players){
-			if(player.getName().equals(player_name)){
+			if(player.getName().equals(playerName)){
 				player.playerWin();
-				Label label_score= player.getScore_player();
-				String score_on_label=player.getScore()+"";
-				label_score.setText(score_on_label);		
-				player.setScore_player(label_score);
+				Label scoreLabel= player.getScore_player();
+				String scoreOnLabel=player.getScore()+"";
+				scoreLabel.setText(scoreOnLabel);		
+				player.setScore(scoreLabel);
 				return;
 			}
 		}
