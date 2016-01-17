@@ -3,21 +3,21 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 public class Player {
   int score=0;
-  HorizontalPanel hp_players;
-  Label score_player;
+  HorizontalPanel playerHorizontalPanel;
+  Label scoreLabel;
   String name="player";
   
   public Player(String name){
 	 
-	  this.score_player= new Label();
+	  this.scoreLabel= new Label();
 	  this.name= name;
 	  this.initScore();
   }
-  public Label getScore_player() {
-	return score_player;
+  public Label getscoreLabel() {
+	return scoreLabel;
 }
-public void setScore_player(Label score_player) {
-	this.score_player = score_player;
+public void setscoreLabel(Label scoreLabel) {
+	this.scoreLabel = scoreLabel;
 }
 public String getName() {
 	return name;
@@ -29,7 +29,7 @@ public void setName(String name) {
 	this.name = name;
 }
 public Player(){
-	  this.score_player= new Label();
+	  this.scoreLabel= new Label();
 	  this.initScore();
   }
   public int getScore() {
@@ -38,17 +38,17 @@ public Player(){
 
   public void setScore(int score) {
 	this.score = score;
-	this.score_player.setText(""+this.score);
+	this.scoreLabel.setText(""+this.score);
   }
 
   public void initScore() {
 	this.score=0;
-	this.score_player.setPixelSize(40, 40);
-	this.score_player.setText(this.score+"");
+	this.scoreLabel.setPixelSize(40, 40);
+	this.scoreLabel.setText(this.score+"");
   }
   public HorizontalPanel drawUi(){
-	  this.hp_players= new HorizontalPanel();
-	  this.hp_players.add(this.score_player);
-	  return this.hp_players;
+	  this.playerHorizontalPanel= new HorizontalPanel();
+	  this.playerHorizontalPanel.add(this.scoreLabel);
+	  return this.playerHorizontalPanel;
   }
 }
