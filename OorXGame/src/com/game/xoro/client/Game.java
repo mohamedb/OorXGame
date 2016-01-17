@@ -10,10 +10,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Game implements ClickHandler{
 
 	ArrayList<Player> players;
-	Player player_o,player_x;
-	MainGrid main_grid;
-	Button init_scores;
-	Button new_game;
+	Player playerO,
+	       playerX;
+	MainGrid mainGrid;
+	Button initScoresBtn;
+	Button newGameBtn;
 
 	public Game(){
 		this.initComposants();
@@ -27,52 +28,52 @@ public class Game implements ClickHandler{
 	}
 	public void initComposants(){
 		/* it's highly recommended to respect the LOGICAL order of instantiations and calls */
-		this.main_grid= new MainGrid();
-		this.main_grid.init();
-		this.init_scores= new Button();
-		this.new_game=new Button("New Game");
-		this.init_scores.setText("Init scores");
+		this.mainGrid= new MainGrid();
+		this.mainGrid.init();
+		this.initScoresBtn= new Button();
+		this.newGameBtn=new Button("New Game");
+		this.initScoresBtn.setText("Init scores");
 		this.players= new ArrayList<Player>();
-		this.player_o= new Player("player_o");
-		this.player_x= new Player("player_x");
-		this.players.add(this.player_o);
-		this.players.add(this.player_x);
-		this.main_grid.addPlayerToUpdateHisScore(this.players);
+		this.playerO= new Player("playerO");
+		this.playerX= new Player("playerX");
+		this.players.add(this.playerO);
+		this.players.add(this.playerX);
+		this.mainGrid.addPlayerToUpdateHisScore(this.players);
 		this.initScores();
-		this.init_scores.addClickHandler((ClickHandler) this);
-		this.new_game.addClickHandler((ClickHandler) this);
+		this.initScoresBtn.addClickHandler((ClickHandler) this);
+		this.newGameBtn.addClickHandler((ClickHandler) this);
 	
 	}
 	public void drawUi(){
-		RootPanel.get("new_game").add( this.new_game);
-		RootPanel.get("init_scores").add( this.init_scores);
-		RootPanel.get("main_grid").add( this.main_grid.drawUi());
-		RootPanel.get("player_o").add(this.player_o.drawUi());
-		RootPanel.get("player_x").add(this.player_x.drawUi());
+		RootPanel.get("newGameBtn").add( this.newGameBtn);
+		RootPanel.get("initScoresBtn").add( this.initScoresBtn);
+		RootPanel.get("mainGrid").add( this.mainGrid.drawUi());
+		RootPanel.get("playerO").add(this.playerO.drawUi());
+		RootPanel.get("playerX").add(this.playerX.drawUi());
 		
 	}
 	public void initGrid(){
-		this.main_grid.init();
+		this.mainGrid.init();
 	}
 
 	public void initScores(){
-		this.player_o.initScore();
-		this.player_x.initScore();
+		this.playerO.initScore();
+		this.playerX.initScore();
 	}
 	@Override
 	public void onClick(ClickEvent event) {
-		if(event.getSource()==this.init_scores){
+		if(event.getSource()==this.initScoresBtn){
 			this.initScores();
 			return;
 		}
-		if(event.getSource()==this.new_game){
+		if(event.getSource()==this.newGameBtn){
 			//this.initScores();
 			this.initTextOfCellsInCurrentGrid();
 			return;
 		}
 	}
 	private void initTextOfCellsInCurrentGrid() {
-		this.main_grid.initTextCells();
+		this.mainGrid.initTextCells();
 	}
 
 }
